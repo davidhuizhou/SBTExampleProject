@@ -5,9 +5,10 @@ package tour
   */
 
 // Classes
+// class keyword followed by its name and constructor parameters
 class Greeter(prefix: String, suffix: String) {
 
-  // The return type is Unit, similiar to void in Java
+  // The return type is Unit, similar to void in Java
   def greet(name: String): Unit =
     println(prefix + name + suffix)
 }
@@ -16,10 +17,11 @@ class Greeter(prefix: String, suffix: String) {
 // Case Classes.
 // By default, case classes are immutable and compared by value.
 // You can instantiate case calsses without new keyword.
-case class Point(x: Int, y: Int)
+case class BasicPoint(x: Int, y: Int)
 
 // Objects
-// Objects are single instances of their own definitions.  Singletons of their own classes.
+// Objects are single instances of their own definitions.
+// Singletons of their own classes.
 // You can access an object by referring to its name.
 object IdFactory {
   private var counter = 0
@@ -43,7 +45,8 @@ trait GreeterTraits2 {
     println("Hello, " + name + "!")
 }
 
-// You can extends traits with extends keyword and override an implementation with the override keyword.
+// You can extends traits with extends keyword and override an implementation
+// with the override keyword.
 // It could extend multiple traits.
 class DefaultGreeter extends GreeterTraits2
 
@@ -53,7 +56,7 @@ class CustomizableGreeter(prefix: String, postfix: String) extends GreeterTraits
   }
 }
 
-// Main Method
+// Main Method - an entry point of a program.
 object Main {
   def main(args: Array[String]): Unit =
     println("Hello, Scala developer!")
@@ -61,7 +64,8 @@ object Main {
 
 object Basics extends App {
 
-  // Blocks, the result of the last expression in the block is the result of the overall block
+  // Blocks
+  // the result of the last expression in the block is the result of the overall block.
   println({
     val t = 4 + 5
     t + 6
@@ -71,13 +75,17 @@ object Basics extends App {
   val addOne = (x: Int) => x + 1
   println(addOne(1))
 
+  // Functions may take multiple parameters
   //  val add = (x: Int, y: Int) => x + y
   //  println(add(1, 2))
 
+  // Function may take no parameters
   val getTheAnswer = () => 42
   println(getTheAnswer())
 
   // Methods
+  // Methods are defined with the def keyword.
+  // def is followed by a name, parameter lists, a return type, and a body
   def add(x: Int, y: Int): Int = x + y
 
   println(add(1, 2))
@@ -105,9 +113,9 @@ object Basics extends App {
   val greeter = new Greeter("Hello, ", "!")
   greeter.greet("Scala developer")
 
-  val point = Point(1, 2)
-  val anotherPoint = Point(1, 2)
-  val yetAnotherPoint = Point(2, 2)
+  val point = BasicPoint(1, 2)
+  val anotherPoint = BasicPoint(1, 2)
+  val yetAnotherPoint = BasicPoint(2, 2)
 
   println("point == anotherPoint is " + (point == anotherPoint))
   println("point == yetAnotherPoint is " + (point == yetAnotherPoint))
