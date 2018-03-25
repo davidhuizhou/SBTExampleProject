@@ -48,12 +48,16 @@ class Point2 {
 
 object Classes extends App {
 
+  // User has a default constructor which takes no arguments.
+  val user1 = new User
+
   val origin = new Point
   println(origin)
 
   val point1 = new Point(2, 3)
   println(point1)
 
+  // only pass in y.
   val point2 = new Point(y = 2)
   println(point2)
 

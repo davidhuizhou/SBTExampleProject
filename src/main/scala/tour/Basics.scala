@@ -34,7 +34,8 @@ object IdFactory {
 
 
 // Traits
-// Traits are types containing certain fields and methods.  Multiple traits can be combined.
+// Traits are types containing certain fields and methods.
+// Multiple traits can be combined.
 trait GreeterTraits {
   def greet(name: String): Unit
 }
@@ -120,6 +121,7 @@ object Basics extends App {
   println("point == anotherPoint is " + (point == anotherPoint))
   println("point == yetAnotherPoint is " + (point == yetAnotherPoint))
 
+  // You can access an object by referring to its name.
   val newId: Int = IdFactory.create()
   println(newId)
 

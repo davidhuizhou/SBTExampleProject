@@ -34,6 +34,7 @@ trait RichIterator extends AbsIterator {
 }
 
 
+// a concrete class (all abstract members T, hasNext, and next have implementations):
 class StringIterator(s: String) extends AbsIterator {
   type T = Char
   private var i = 0
