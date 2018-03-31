@@ -1,5 +1,10 @@
 package proginscala
 
+import scala.collection.mutable
+import scala.collection.immutable.HashSet
+
+import scala.io.Source
+
 object Chapter3 extends App {
   val greetStrings = new Array[String](3)
 
@@ -122,6 +127,118 @@ object Chapter3 extends App {
   // Returns a list containing all elements of the thrill list in alphabetical order of the f
   // irst character lowercased (returns List("fill", "until", "Will"))
   println(thrill.sortWith((s, t) => s.charAt(0).toLower < t.charAt(0).toLower))
+
+
+  // Use tuples
+  // Like lists, tuples are immutable, but unlike lists, tuples can contain different
+  // types of elements. Whereas a list might be a List[Int] or a List[String],
+  // a tuple could contain both an integer and a string at the same time.
+
+  // Tuples are very useful, for example, if you need to return multiple objects from a method.
+  // you can access its elements individually with a dot, underscore, and the one-based
+  // index of the element
+  val pair = (99, "Luftballons")
+
+  println(pair._1)
+  println(pair._2)
+  println(pair)
+
+  // Use sets and maps
+
+  // For example, the Scala API contains a base trait for sets, where a trait is similar
+  // to a Java interface.
+
+  // How to create a set
+  var jetSet = Set("Boeing", "Airbus")
+  jetSet += "Lear"
+  println(jetSet.contains("Cessna"))
+
+  // As you can see in Figure 3.2, these three traits all share the same simple name, Set.
+  // Their fully qualified names differ, however, because each resides in a different package.
+  // scala.collection.Set
+  // scala.collection.immutable.Set, scala.collection.mutable.Set
+  // scala.collection.immutable.HashSet, scala.collection.mutable.HashSet
+
+  // If you want a mutable set, you'll need to use an import
+  // import scala.collection.mutable
+  val movieSet = mutable.Set("Hitch", "Poltergeist")
+  movieSet += "Shrek"
+  println(movieSet)
+
+  // import scala.collection.immutable.HashSet
+  val hashSet = HashSet("Tomatoes", "Chilies")
+  println(hashSet + "Coriander")
+
+  // Map
+  val treasureMap = mutable.Map[Int, String]()
+  treasureMap += (1 -> "Go to island.")
+  treasureMap += (2 -> "Find big X on ground.")
+  treasureMap += (3 -> "Dig.")
+  println(treasureMap(2))
+
+  // If you prefer an immutable map, no import is necessary, as immutable is the default map.
+  val romanNumeral = Map(
+    1 -> "I", 2 -> "II", 3 -> "III", 4 -> "IV", 5 -> "V"
+  )
+  println(romanNumeral(4))
+
+  // How to recoginize the functional style.
+  // The first step is to recognize the difference between the two styles in code.
+  // One telltale sign is that if code contains any vars, it is probably in an imperative style.
+  // If the code contains no vars at all—i.e., it contains only vals—it is probably
+  // in a functional style.
+
+
+  def printArgs1(args: Array[String]): Unit = {
+    var i = 0
+    while (i < args.length) {
+      println(args(i))
+      i += 1
+    }
+  }
+
+  // Translate into functional style by getting rid of the var.
+  def printArgs2(args: Array[String]): Unit = {
+    for (arg <- args)
+      println(arg)
+  }
+
+  // or
+  def printArgs(args: Array[String]): Unit = {
+    args.foreach(println)
+  }
+
+  // But you can go even further. The refactored printArgs method is not purely functional because
+  // it has side effects—in this case, its side effect is printing to the standard output stream.
+  // The telltale sign of a function with side effects is that its result type is Unit.
+
+  // A more functional approach would be to define a method that formats the passed args for
+  // printing, but just returns the formatted string.
+  def formatArgs(args: Array[String]) = args.mkString("\n")
+
+  val res = formatArgs(Array("zero", "one", "two"))
+  assert(res == "zero\none\ntwo")
+
+  // Read lines from a file
+  def widthOfLength(s: String) = s.length.toString.length
+
+  if (args.length > 0) {
+
+    val lines = Source.fromFile(args(0)).getLines().toList
+
+    val longestLine = lines.reduceLeft(
+      (a, b) => if (a.length > b.length) a else b
+    )
+    val maxWidth = widthOfLength(longestLine)
+
+    for (line <- lines) {
+      val numSpaces = maxWidth - widthOfLength(line)
+      val padding = " " * numSpaces
+      println(padding + line.length + " | " + line)
+    }
+  }
+  else
+    Console.err.println("Please enter filename")
 
 
 }
